@@ -1,0 +1,65 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+
+                {% with messages = get_flashed_messages() %}
+                    {% for msg in messages %}
+                        <div class="alert alert-info alert-dismissible fade show">
+                            {{ msg }}
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        </div>
+                    {% endfor %}
+                {% endwith %}
+
+                <h3>Your favorites quotes</h3>
+                {% for fav in favorites %}
+                    <blockquote class="quote-card">
+                        <p>
+                            {{ fav.text }}
+                        </p>
+
+                        <div class="text-left">
+                            <hr align="left" width="30%">
+                            <a href="{{ url_for('app.remove_favorite', quote_id=fav.id) }}" data-toggle="tooltip"
+                               data-placement="bottom" title="Remove from favorites :(">
+                                <i class="fas fa-ban"></i>
+                            </a>
+                        </div>
+
+                    </blockquote>
+                {% endfor %}
+
+                {% if not favorites %}
+
+                    <div class="alert alert-info alert-dismissible fade show">
+                        No favorites added :(
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    </div>
+
+                {% endif %}
+
+                <div class="mt-4">
+                    <a type="button" class="btn btn-primary btn-lg btn-block"
+                       href="{{ url_for('app.logout') }}">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block extra_js %}
+
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+
+{% endblock %}

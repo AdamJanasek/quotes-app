@@ -1,0 +1,31 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <p class="info text-center mt-4">
+                    It's simple flask app integrated with FavQs API v2.
+                    <br>
+                    API is available at: <a class="blue" href="https://favqs.com/api" target="_blank">https://favqs.com/api</a>
+                    <br>
+                    The application allows you to view and search quotes by keyword.
+                    <br>
+                    After logging in, the user can up vote and down vote to quotes or add to favorites.
+                    <br>
+                    The application still needs to be added:
+                </p>
+                <ul>
+                    <li class="info">pagination</li>
+                    <li class="info">allow full filtering</li>
+                    <li class="info">allow all api functions to be used</li>
+                    <li class="info">add tests</li>
+                    <li class="info">add errors templates</li>
+                    <li class="info">registration</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

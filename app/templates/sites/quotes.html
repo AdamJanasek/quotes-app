@@ -1,0 +1,84 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+    <div class="container">
+
+        {% with messages = get_flashed_messages() %}
+            {% for msg in messages %}
+                <div class="alert alert-info alert-dismissible fade show">
+                    {{ msg }}
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                </div>
+            {% endfor %}
+        {% endwith %}
+
+
+        <div class="quote-card">
+            <form method="get">
+                <div class="form-group form-row">
+                    <div class="col-12">
+                        <label for="keyword" hidden>Keyword</label>
+                        <input id="keyword" value="{% if keyword %}{{ keyword }}{% endif %}" name="keyword" type="text"
+                               class="form-control" placeholder="Keyword">
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-4">Search</button>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="mt-4">
+
+            {% for class, q in quotes %}
+                <blockquote class="quote-card {{ class }}">
+                    <p>
+                        {{ q.body }}
+                    </p>
+
+                    <cite>
+                        {{ q.author }}
+                    </cite>
+
+
+                    <div class="text-left">
+                        <hr align="left" width="30%">
+                        <a href="{{ url_for('app.vote_up', quote_id=q.id) }}" data-toggle="tooltip"
+                           data-placement="bottom" title="Vote up! Login required!">
+                            <i class="fas fa-thumbs-up"></i>
+                        </a>
+                        <a href="{{ url_for('app.vote_down', quote_id=q.id) }}" data-toggle="tooltip"
+                           data-placement="bottom" title="Vote down! Login required!">
+                            <i class="fas fa-thumbs-down"></i>
+                        </a>
+                        <a href="{{ url_for('app.add_favorite', quote_id=q.id) }}" data-toggle="tooltip"
+                           data-placement="bottom" title="Add to favorites! Login required!">
+                            <i class="fas fa-heart"></i>
+                        </a>
+                    </div>
+
+                </blockquote>
+            {% endfor %}
+        </div>
+
+        {% if quotes %}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </nav>
+        {% endif %}
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}
+
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+
+{% endblock %}
